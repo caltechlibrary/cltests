@@ -41,24 +41,38 @@ The expected function return a new test state if the test fails.
 
 Exmaple:
 
-~~~
-    import sys
+This example should fail showing a report of what happened.
 
-    from cltests import TestSet, T
+~~~
+    from cltests import TestSet, T, IsSuccessful
 
     def mytest():
         t = T()
-        t.ExpectedBool(True, False, "True # False", test)       
+        t.Expected(True, False, "True # False")       
         return t.Results()
 
     if __name__ == '__main__':
-        ts = TestSet("My test demo")
+        ts = TestSet("My test demo fialing")
         ts.add(mytest)
-        if ts.run():
-            sys.exit(0)
-        else:
-            sys.exit(1)
+        IsSuccessful(ts.run())
 ~~~
+
+This example should success and return "OK, My test demo worked".
+
+~~~
+    from cltests import TestSet, T, IsSuccessful
+
+    def mytest():
+        t = T()
+        t.Expected(True, True, "True = True")       
+        return t.Results()
+
+    if __name__ == '__main__':
+        ts = TestSet("My test demo worked")
+        ts.add(mytest)
+        IsSuccessful(ts.run())
+~~~
+
 
 Installation
 ------------
